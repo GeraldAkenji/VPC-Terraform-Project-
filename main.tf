@@ -85,3 +85,22 @@ resource "aws_route_table_association" "public_rta_3" {
   subnet_id      = aws_subnet.public_subnet_3.id
   route_table_id = aws_route_table.public_route_table.id
 }
+
+resource "aws_security_group" "nginx_sg" {
+  name_prefix = "nginx-sg"
+  vpc_id      = aws_vpc.main_vpc.id
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}

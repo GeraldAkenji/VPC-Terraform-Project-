@@ -104,3 +104,14 @@ resource "aws_security_group" "nginx_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+resource "aws_instance" "nginx_instance" {
+  ami                         = var.ami_id
+  instance_type               = var.instance_type
+  subnet_id                   = aws_subnet.public_subnet_1.id
+  security_groups             = [aws_security_group.nginx_sg.id]
+  associate_public_ip_address = true
+  tags = {
+    Name = "nginx-instance"
+  }
+}

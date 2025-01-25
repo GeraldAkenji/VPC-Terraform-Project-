@@ -60,3 +60,7 @@ resource "aws_subnet" "private_subnet_3" {
     Name = "Private Subnet 3"
   }
 }
+
+resource "aws_internet_gateway" "main_igw" {
+  vpc_id = aws_vpc.main_vpc.id
+}
